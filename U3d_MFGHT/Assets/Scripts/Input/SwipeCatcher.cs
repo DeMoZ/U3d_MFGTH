@@ -56,8 +56,8 @@ public class SwipeCatcher : MonoBehaviour, IPointerDownHandler, IBeginDragHandle
             return;
 
         //Debug.Log("OnBeginDrag");
+        //DebugShowArrowInInspector();
         _touchPos = eventData.position;
-        DebugShowArrowInInspector();
 
         _ctx.OnSwipe.Execute(new Swipe
         {
@@ -76,7 +76,7 @@ public class SwipeCatcher : MonoBehaviour, IPointerDownHandler, IBeginDragHandle
             return;
 
         //Debug.Log("OnDrag - direction changed");
-        DebugShowArrowInInspector();
+        //DebugShowArrowInInspector();
 
         _touchPos = eventData.position;
 
@@ -161,16 +161,17 @@ public class SwipeCatcher : MonoBehaviour, IPointerDownHandler, IBeginDragHandle
         return true;
     }
 
-    [SerializeField] private string _graph = "o";
+    private string _debugShowValue = "o";
     private void DebugShowArrowInInspector()
     {
-        _graph = _swipeDirection switch
+        _debugShowValue = _swipeDirection switch
         {
             SwipeDirections.None => "o",
             SwipeDirections.ToRight => ">",
             SwipeDirections.ToLeft => "<",
             SwipeDirections.ToUp => "^",
             SwipeDirections.ToDown => "v",
+            SwipeDirections.Thrust => "x",
             _ => throw new ArgumentOutOfRangeException()
         };
     }

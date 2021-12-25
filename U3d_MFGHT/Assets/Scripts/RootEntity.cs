@@ -5,7 +5,8 @@ public class RootEntity
 {
     public struct Context
     {
-        public SwipeCatcher SwipeCatcher;
+        public Transform UIParent;
+        public ResourceLoader ResourceLoader;
     }
 
     private Context _context;
@@ -14,6 +15,9 @@ public class RootEntity
     {
         _context = context;
 
+        var swipeCatcher = _context.ResourceLoader.Get<SwipeCatcher>(_context.ResourceLoader.UIPrefabs.SwipeCatcher, _context.UIParent); 
+        
+        
         IReactiveCommand<Swipe> onSwipe = new ReactiveCommand<Swipe>();
 
         SwipeCatcher.Context swipeCatcherCtx = new SwipeCatcher.Context
@@ -21,33 +25,11 @@ public class RootEntity
             OnSwipe = onSwipe
         };
         
-        _context.SwipeCatcher.SetContext(swipeCatcherCtx);
+        swipeCatcher.SetContext(swipeCatcherCtx);
 
         PlayerSwipeInput psi = new PlayerSwipeInput(new PlayerSwipeInput.Context
         {
             OnSwipe = onSwipe
         });
     }
-}
-
-public class PlayerSwipeInput
-{
-    public struct Context
-    {
-        public IReactiveCommand<Swipe> OnSwipe;
-    }
-
-    private Context _context;
-    public PlayerSwipeInput(Context context)
-    {
-        _context = context;
-
-        _context.OnSwipe.Subscribe(OnSwipe);
-    }
-
-    public void OnSwipe(Swipe swipe)
-    {
-        Debug.LogWarning($"swipe received {swipe.SwipeStates},{swipe.SwipeDirection}");
-    }
-
 }
