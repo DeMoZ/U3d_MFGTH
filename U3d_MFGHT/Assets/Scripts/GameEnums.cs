@@ -13,5 +13,15 @@ public enum SwipeDirections
     ToLeft = 2,
     ToUp = 3,
     ToDown = 4,
-    Thrust = 5, // Lunge
+    Thrust = 5, // Lunge // колящий удар
+}
+
+public enum FightStates
+{
+    None,
+    Idle,
+    StartPosition,
+    Hold,
+    Hit,
+    End
 }
