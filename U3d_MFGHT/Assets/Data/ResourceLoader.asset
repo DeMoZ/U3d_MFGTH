@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: ResourceLoader
   m_EditorClassIdentifier: 
   UIPrefabs: {fileID: 11400000, guid: 917e599c80e10a24da5b73ebd78a93a5, type: 2}
+  PlayerView: {fileID: 4568284861420020686, guid: 2a099174f95c07045bc47f4406f3d22e, type: 3}

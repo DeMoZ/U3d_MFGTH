@@ -1,5 +1,6 @@
 ﻿using UniRx;
 using UnityEngine;
+using System.Threading.Tasks;
 
 public class RootEntity
 {
@@ -8,17 +9,18 @@ public class RootEntity
         public Transform UIParent;
         public ResourceLoader ResourceLoader;
     }
-
-    private Context _context;
     
+    private Context _context;
+
     public RootEntity(Context context)
     {
         _context = context;
 
-        var swipeCatcher = _context.ResourceLoader.Get<SwipeCatcher>(_context.ResourceLoader.UIPrefabs.SwipeCatcher, _context.UIParent); 
-        
-        
+        ReactiveProperty<bool> isSwipeEnabled = new ReactiveProperty<bool>(false);
         IReactiveCommand<Swipe> onSwipe = new ReactiveCommand<Swipe>();
+        IReactiveCommand<Swipe> onSwipeValidated = new ReactiveCommand<Swipe>();
+
+        var swipeCatcher = _context.ResourceLoader.Get<SwipeCatcher>(_context.ResourceLoader.UIPrefabs.SwipeCatcher, _context.UIParent);
 
         SwipeCatcher.Context swipeCatcherCtx = new SwipeCatcher.Context
         {
@@ -29,7 +31,26 @@ public class RootEntity
 
         PlayerSwipeInput psi = new PlayerSwipeInput(new PlayerSwipeInput.Context
         {
-            OnSwipe = onSwipe
+            isSwipeEnabled = isSwipeEnabled,
+            OnSwipe = onSwipe,
+            OnSwipeValidated = onSwipeValidated
         });
+
+        var playerEntityCtx = new PlayerEntity.Ctx
+        {
+             ResourceLoader = _context.ResourceLoader,
+             OnSwipe = onSwipeValidated
+        };
+
+        var playerEntity = new PlayerEntity(playerEntityCtx);
+
+        ActivateInput(isSwipeEnabled);
+    }
+    
+    public async void ActivateInput(ReactiveProperty<bool> isSwipeEnabled)
+    {
+        await Task.Delay(5000);
+        Debug.Log("Enabling swipe");
+        isSwipeEnabled.Value = true;
     }
 }
