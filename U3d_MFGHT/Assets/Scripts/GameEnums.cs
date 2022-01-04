@@ -25,3 +25,18 @@ public enum FightStates
     Hit,
     End
 }
+
+public enum AttackPoints
+{
+    Default,
+    RightUp,
+    RightDown,
+    RightLeft,
+    RightRight,
+    OverridePositionWithVector
+}
+
+public enum PointTypes{
+    AttackPoints,
+    OverrideVector3
+}

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7271126488947091975}
   - component: {fileID: 7271126488947091974}
   m_Layer: 0
-  m_Name: AttackPoints
+  m_Name: R_EndPoints
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -28,10 +28,10 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 7271126489719157428}
-  - {fileID: 7271126489702659017}
   - {fileID: 7271126489930313026}
   - {fileID: 7271126490837025817}
+  - {fileID: 7271126489719157428}
+  - {fileID: 7271126489702659017}
   m_Father: {fileID: 7271126489953157456}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -57,8 +57,9 @@ GameObject:
   m_Component:
   - component: {fileID: 7271126489322745730}
   - component: {fileID: 7271126489322745733}
+  - component: {fileID: 8252340970890344319}
   m_Layer: 8
-  m_Name: R_HoldFromDown
+  m_Name: R_StartDown
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -93,6 +94,21 @@ MonoBehaviour:
   _gizmo: 0
   _radius: 0.1
   _color: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+--- !u!114 &8252340970890344319
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7271126489322745731}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 070b43f6137b4d3caebb9738970d9ce7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PointType: 0
+  EnumType: 2
+  VectorType: {x: 0, y: 0, z: 0}
 --- !u!1 &7271126489334351307
 GameObject:
   m_ObjectHideFlags: 0
@@ -103,8 +119,9 @@ GameObject:
   m_Component:
   - component: {fileID: 7271126489334351306}
   - component: {fileID: 7271126489334351309}
+  - component: {fileID: 4757488680709046351}
   m_Layer: 8
-  m_Name: R_HoldFromLeft
+  m_Name: R_StartLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -139,6 +156,21 @@ MonoBehaviour:
   _gizmo: 0
   _radius: 0.1
   _color: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+--- !u!114 &4757488680709046351
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7271126489334351307}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 070b43f6137b4d3caebb9738970d9ce7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PointType: 0
+  EnumType: 4
+  VectorType: {x: 0, y: 0, z: 0}
 --- !u!1 &7271126489558825573
 GameObject:
   m_ObjectHideFlags: 0
@@ -149,8 +181,9 @@ GameObject:
   m_Component:
   - component: {fileID: 7271126489558825572}
   - component: {fileID: 7271126489558825575}
+  - component: {fileID: 1934084729994917009}
   m_Layer: 8
-  m_Name: R_HoldFromUp
+  m_Name: R_StartUp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -185,6 +218,21 @@ MonoBehaviour:
   _gizmo: 0
   _radius: 0.1
   _color: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+--- !u!114 &1934084729994917009
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7271126489558825573}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 070b43f6137b4d3caebb9738970d9ce7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PointType: 0
+  EnumType: 1
+  VectorType: {x: 0, y: 0, z: 0}
 --- !u!1 &7271126489702659030
 GameObject:
   m_ObjectHideFlags: 0
@@ -195,8 +243,9 @@ GameObject:
   m_Component:
   - component: {fileID: 7271126489702659017}
   - component: {fileID: 7271126489702659016}
+  - component: {fileID: 5076316961953581912}
   m_Layer: 0
-  m_Name: R_MoveToLeft
+  m_Name: R_EndLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -214,7 +263,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7271126488947091975}
-  m_RootOrder: 1
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7271126489702659016
 MonoBehaviour:
@@ -231,6 +280,21 @@ MonoBehaviour:
   _gizmo: 0
   _radius: 0.1
   _color: {r: 1, g: 0.16726908, b: 0.015686274, a: 1}
+--- !u!114 &5076316961953581912
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7271126489702659030}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 070b43f6137b4d3caebb9738970d9ce7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PointType: 0
+  EnumType: 3
+  VectorType: {x: 0, y: 0, z: 0}
 --- !u!1 &7271126489719157429
 GameObject:
   m_ObjectHideFlags: 0
@@ -241,8 +305,9 @@ GameObject:
   m_Component:
   - component: {fileID: 7271126489719157428}
   - component: {fileID: 7271126489719157431}
+  - component: {fileID: 3831591637464596661}
   m_Layer: 0
-  m_Name: R_MoveToRight
+  m_Name: R_EndRight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -260,7 +325,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7271126488947091975}
-  m_RootOrder: 0
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7271126489719157431
 MonoBehaviour:
@@ -277,6 +342,21 @@ MonoBehaviour:
   _gizmo: 0
   _radius: 0.1
   _color: {r: 1, g: 0.16726908, b: 0.015686274, a: 1}
+--- !u!114 &3831591637464596661
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7271126489719157429}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 070b43f6137b4d3caebb9738970d9ce7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PointType: 0
+  EnumType: 4
+  VectorType: {x: 0, y: 0, z: 0}
 --- !u!1 &7271126489887619330
 GameObject:
   m_ObjectHideFlags: 0
@@ -287,8 +367,9 @@ GameObject:
   m_Component:
   - component: {fileID: 7271126489887619333}
   - component: {fileID: 7271126489887619332}
+  - component: {fileID: 4960923871019792332}
   m_Layer: 8
-  m_Name: R_HoldFromRight
+  m_Name: R_StartRight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -323,6 +404,21 @@ MonoBehaviour:
   _gizmo: 0
   _radius: 0.1
   _color: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+--- !u!114 &4960923871019792332
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7271126489887619330}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 070b43f6137b4d3caebb9738970d9ce7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PointType: 0
+  EnumType: 3
+  VectorType: {x: 0, y: 0, z: 0}
 --- !u!1 &7271126489930313027
 GameObject:
   m_ObjectHideFlags: 0
@@ -333,8 +429,9 @@ GameObject:
   m_Component:
   - component: {fileID: 7271126489930313026}
   - component: {fileID: 7271126489930313029}
+  - component: {fileID: 8473247093608978873}
   m_Layer: 0
-  m_Name: R_MoveToUp
+  m_Name: R_EndUp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -352,7 +449,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7271126488947091975}
-  m_RootOrder: 2
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7271126489930313029
 MonoBehaviour:
@@ -369,6 +466,21 @@ MonoBehaviour:
   _gizmo: 0
   _radius: 0.1
   _color: {r: 1, g: 0.16726908, b: 0.015686274, a: 1}
+--- !u!114 &8473247093608978873
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7271126489930313027}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 070b43f6137b4d3caebb9738970d9ce7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PointType: 0
+  EnumType: 1
+  VectorType: {x: 0, y: 0, z: 0}
 --- !u!1 &7271126489953157457
 GameObject:
   m_ObjectHideFlags: 0
@@ -379,8 +491,9 @@ GameObject:
   m_Component:
   - component: {fileID: 7271126489953157456}
   - component: {fileID: 7271126489953157459}
+  - component: {fileID: 5746060155412740485}
   m_Layer: 0
-  m_Name: R_FightPoints
+  m_Name: AttackMap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -410,13 +523,15 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7271126489953157457}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 399069604c960d345a9121b564ae06f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _fileName: AttackConfig
   _playerTransfrom: {fileID: 0}
   _target: {fileID: 0}
+  _defaultPoint: {fileID: 0}
   _fromPoint: {fileID: 7271126489334351306}
   _toPoint: {fileID: 7271126489719157428}
   _blendTime: 0.5
@@ -455,6 +570,29 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   repeat: 1
+--- !u!114 &5746060155412740485
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7271126489953157457}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc92c4b75ca84fcc9f2422cbf30783f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _rightDefaultPoint: {fileID: 440372296522488976}
+  _rightHandStartPoints:
+  - {fileID: 1934084729994917009}
+  - {fileID: 8252340970890344319}
+  - {fileID: 4960923871019792332}
+  - {fileID: 4757488680709046351}
+  _rightHandEndPoints:
+  - {fileID: 8473247093608978873}
+  - {fileID: 8581292388044265479}
+  - {fileID: 3831591637464596661}
+  - {fileID: 5076316961953581912}
 --- !u!1 &7271126490600014824
 GameObject:
   m_ObjectHideFlags: 0
@@ -465,6 +603,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7271126490600014827}
   - component: {fileID: 7271126490600014826}
+  - component: {fileID: 440372296522488976}
   m_Layer: 8
   m_Name: R_Default
   m_TagString: Untagged
@@ -501,6 +640,21 @@ MonoBehaviour:
   _gizmo: 1
   _radius: 0.1
   _color: {r: 0.21958262, g: 1, b: 0.015686274, a: 1}
+--- !u!114 &440372296522488976
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7271126490600014824}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 070b43f6137b4d3caebb9738970d9ce7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PointType: 0
+  EnumType: 0
+  VectorType: {x: 0, y: 0, z: 0}
 --- !u!1 &7271126490837025894
 GameObject:
   m_ObjectHideFlags: 0
@@ -511,8 +665,9 @@ GameObject:
   m_Component:
   - component: {fileID: 7271126490837025817}
   - component: {fileID: 7271126490837025816}
+  - component: {fileID: 8581292388044265479}
   m_Layer: 0
-  m_Name: R_MoveToDown
+  m_Name: R_EndDown
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -530,7 +685,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7271126488947091975}
-  m_RootOrder: 3
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7271126490837025816
 MonoBehaviour:
@@ -547,6 +702,21 @@ MonoBehaviour:
   _gizmo: 0
   _radius: 0.1
   _color: {r: 1, g: 0.16726908, b: 0.015686274, a: 1}
+--- !u!114 &8581292388044265479
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7271126490837025894}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 070b43f6137b4d3caebb9738970d9ce7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PointType: 0
+  EnumType: 2
+  VectorType: {x: 0, y: 0, z: 0}
 --- !u!1 &7271126490989177055
 GameObject:
   m_ObjectHideFlags: 0
@@ -558,7 +728,7 @@ GameObject:
   - component: {fileID: 7271126490989177054}
   - component: {fileID: 7271126490989177041}
   m_Layer: 8
-  m_Name: HoldPoints
+  m_Name: R_StartPoints
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
