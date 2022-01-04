@@ -24,8 +24,13 @@ public class PlayerEntity : IDisposable
         };
         playerView.SetCtx(playerViewCtx);
 
+        var attackMap = playerView.AttackMap;
+        var bodyParts = playerView.BodyParts;
+        
         var playerFightCtx = new PlayerFightPm.Ctx
         {
+            BodyParts = bodyParts,
+            AttackMap = attackMap,
             OnSwipe = _ctx.OnSwipe
         };
         var playerFightPm = new PlayerFightPm(playerFightCtx);
