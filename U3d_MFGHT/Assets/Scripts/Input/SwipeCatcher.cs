@@ -30,7 +30,7 @@ public class SwipeCatcher : MonoBehaviour, IPointerDownHandler, IBeginDragHandle
     {
         _ctx.OnSwipe.Execute(new Swipe
         {
-            SwipeStates = SwipeStates.None,
+            SwipeState = SwipeStates.None,
             SwipeDirection = SwipeDirections.None
         });
 
@@ -41,7 +41,7 @@ public class SwipeCatcher : MonoBehaviour, IPointerDownHandler, IBeginDragHandle
 
         _ctx.OnSwipe.Execute(new Swipe
         {
-            SwipeStates = SwipeStates.Start,
+            SwipeState = SwipeStates.Start,
             SwipeDirection = _swipeDirection
         });
     }
@@ -61,7 +61,7 @@ public class SwipeCatcher : MonoBehaviour, IPointerDownHandler, IBeginDragHandle
 
         _ctx.OnSwipe.Execute(new Swipe
         {
-            SwipeStates = SwipeStates.Change,
+            SwipeState = SwipeStates.Change,
             SwipeDirection = _swipeDirection
         });
     }
@@ -82,7 +82,7 @@ public class SwipeCatcher : MonoBehaviour, IPointerDownHandler, IBeginDragHandle
 
         _ctx.OnSwipe.Execute(new Swipe
         {
-            SwipeStates = SwipeStates.Change,
+            SwipeState = SwipeStates.Change,
             SwipeDirection = _swipeDirection
         });
     }
@@ -111,13 +111,13 @@ public class SwipeCatcher : MonoBehaviour, IPointerDownHandler, IBeginDragHandle
 
         _ctx.OnSwipe.Execute(new Swipe
         {
-            SwipeStates = SwipeStates.End,
+            SwipeState = SwipeStates.End,
             SwipeDirection = SwipeDirections.Thrust
         });
 
         _ctx.OnSwipe.Execute(new Swipe
         {
-            SwipeStates = SwipeStates.None,
+            SwipeState = SwipeStates.None,
             SwipeDirection = SwipeDirections.None
         });
     }
@@ -127,13 +127,13 @@ public class SwipeCatcher : MonoBehaviour, IPointerDownHandler, IBeginDragHandle
         //Debug.Log("OnEndDrag");
         _ctx.OnSwipe.Execute(new Swipe
         {
-            SwipeStates = SwipeStates.End,
+            SwipeState = SwipeStates.End,
             SwipeDirection = _swipeDirection
         });
 
         _ctx.OnSwipe.Execute(new Swipe
         {
-            SwipeStates = SwipeStates.None,
+            SwipeState = SwipeStates.None,
             SwipeDirection = SwipeDirections.None
         });
     }

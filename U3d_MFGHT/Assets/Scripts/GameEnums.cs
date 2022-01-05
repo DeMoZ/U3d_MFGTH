@@ -26,7 +26,7 @@ public enum FightStates
     End
 }
 
-public enum AttackPoints
+public enum AttackPointPositions
 {
     Default,
     RightUp,

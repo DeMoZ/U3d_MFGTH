@@ -1547,6 +1547,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c5221301c6b4839860bb3b600137764, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _attackScheme: {fileID: 11400000, guid: f18b88d1f4abfdc4ea31dde0ed4863d3, type: 2}
   _bodyParts: {fileID: 8762990671279151064}
   _attackMap: {fileID: 4398691605101113455}
 --- !u!114 &8762990671279151064

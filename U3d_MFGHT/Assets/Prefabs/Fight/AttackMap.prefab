@@ -30,8 +30,8 @@ Transform:
   m_Children:
   - {fileID: 7271126489930313026}
   - {fileID: 7271126490837025817}
-  - {fileID: 7271126489719157428}
   - {fileID: 7271126489702659017}
+  - {fileID: 7271126489719157428}
   m_Father: {fileID: 7271126489953157456}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -106,9 +106,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 070b43f6137b4d3caebb9738970d9ce7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PointType: 0
-  EnumType: 2
-  VectorType: {x: 0, y: 0, z: 0}
+  _attackPointPosition: 2
 --- !u!1 &7271126489334351307
 GameObject:
   m_ObjectHideFlags: 0
@@ -139,7 +137,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7271126490989177054}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7271126489334351309
 MonoBehaviour:
@@ -168,9 +166,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 070b43f6137b4d3caebb9738970d9ce7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PointType: 0
-  EnumType: 4
-  VectorType: {x: 0, y: 0, z: 0}
+  _attackPointPosition: 3
 --- !u!1 &7271126489558825573
 GameObject:
   m_ObjectHideFlags: 0
@@ -230,9 +226,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 070b43f6137b4d3caebb9738970d9ce7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PointType: 0
-  EnumType: 1
-  VectorType: {x: 0, y: 0, z: 0}
+  _attackPointPosition: 1
 --- !u!1 &7271126489702659030
 GameObject:
   m_ObjectHideFlags: 0
@@ -263,7 +257,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7271126488947091975}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7271126489702659016
 MonoBehaviour:
@@ -292,9 +286,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 070b43f6137b4d3caebb9738970d9ce7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PointType: 0
-  EnumType: 3
-  VectorType: {x: 0, y: 0, z: 0}
+  _attackPointPosition: 3
 --- !u!1 &7271126489719157429
 GameObject:
   m_ObjectHideFlags: 0
@@ -325,7 +317,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7271126488947091975}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7271126489719157431
 MonoBehaviour:
@@ -354,9 +346,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 070b43f6137b4d3caebb9738970d9ce7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PointType: 0
-  EnumType: 4
-  VectorType: {x: 0, y: 0, z: 0}
+  _attackPointPosition: 4
 --- !u!1 &7271126489887619330
 GameObject:
   m_ObjectHideFlags: 0
@@ -387,7 +377,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7271126490989177054}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7271126489887619332
 MonoBehaviour:
@@ -416,9 +406,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 070b43f6137b4d3caebb9738970d9ce7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PointType: 0
-  EnumType: 3
-  VectorType: {x: 0, y: 0, z: 0}
+  _attackPointPosition: 4
 --- !u!1 &7271126489930313027
 GameObject:
   m_ObjectHideFlags: 0
@@ -478,9 +466,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 070b43f6137b4d3caebb9738970d9ce7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PointType: 0
-  EnumType: 1
-  VectorType: {x: 0, y: 0, z: 0}
+  _attackPointPosition: 1
 --- !u!1 &7271126489953157457
 GameObject:
   m_ObjectHideFlags: 0
@@ -652,9 +638,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 070b43f6137b4d3caebb9738970d9ce7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PointType: 0
-  EnumType: 0
-  VectorType: {x: 0, y: 0, z: 0}
+  _attackPointPosition: 0
 --- !u!1 &7271126490837025894
 GameObject:
   m_ObjectHideFlags: 0
@@ -714,9 +698,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 070b43f6137b4d3caebb9738970d9ce7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PointType: 0
-  EnumType: 2
-  VectorType: {x: 0, y: 0, z: 0}
+  _attackPointPosition: 2
 --- !u!1 &7271126490989177055
 GameObject:
   m_ObjectHideFlags: 0
@@ -747,8 +729,8 @@ Transform:
   m_Children:
   - {fileID: 7271126489558825572}
   - {fileID: 7271126489322745730}
-  - {fileID: 7271126489887619333}
   - {fileID: 7271126489334351306}
+  - {fileID: 7271126489887619333}
   m_Father: {fileID: 7271126489953157456}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

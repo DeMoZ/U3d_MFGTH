@@ -1,4 +1,6 @@
 using System;
+using System.Linq;
+using DG.Tweening;
 using UniRx;
 using UnityEngine;
 
@@ -6,6 +8,7 @@ public class PlayerFightPm : IDisposable
 {
     public struct Ctx
     {
+        public AttackScheme AttackScheme;
         public BodyParts BodyParts;
         public AttackMapView AttackMap;
         public IReactiveCommand<Swipe> OnSwipe;
@@ -14,11 +17,17 @@ public class PlayerFightPm : IDisposable
     private Ctx _ctx;
     private CompositeDisposable _toDispose;
 
+    /*private SwipeStates _currentSwipeState;
+    private SwipeDirections _currentSwipeDirection;*/
+
+    private Swipe _currentSwipe;
+    private Tween _currentTween;
+
     public PlayerFightPm(Ctx ctx)
     {
         _ctx = ctx;
         _toDispose = new CompositeDisposable();
-        
+
         _ctx.OnSwipe.Subscribe(OnSwipe).AddTo(_toDispose);
 
         TargetDefaultPosition();
@@ -26,30 +35,91 @@ public class PlayerFightPm : IDisposable
 
     private void OnSwipe(Swipe swipe)
     {
-        Debug.LogWarning($"PlayerFightPm Received on swipe  {swipe.SwipeStates},{swipe.SwipeDirection}");
+        Debug.LogWarning($"PlayerFightPm Received on swipe  {swipe.SwipeState},{swipe.SwipeDirection}");
+
+        // --> TODO: calculation depends on current attack state
+        // return if something , or even do something different
+        // <--
         
-       // --> TODO: calculation depends on current attack state
-       // return if something , or even do something different
-       // <--
-        
-       // for now just usual routine
+        // TODO: DELETE THIS. It brake all the mechanic. Created in test purposes 
+        if (swipe.SwipeState == SwipeStates.None)
+        {
+            _currentSwipe = swipe;
+            //.RHStartPoints.First(p=>p.AttackPointPosition==AttackPointPositions.Default).transform.position,
+            Tween myTween = _ctx.BodyParts.RHTarget.DOMove(_ctx.AttackMap.RHDefaultPoint.transform.position, 2)
+                .SetEase(Ease.OutQuint);
+            //.OnComplete(myFunction);
+            //BrakeRoutines();
+            return;
+        }
+
+        switch (_currentSwipe.SwipeState)
+        {
+            case SwipeStates.None:
+                if (swipe.SwipeState == SwipeStates.Start)
+                    MoveToStartHitPosition(swipe);
+                break;
+            case SwipeStates.Start:
+                if (swipe.SwipeState == SwipeStates.Change)
+                {
+                }
+                else if (swipe.SwipeState == SwipeStates.End)
+                {
+                }
+
+                break;
+            case SwipeStates.Change:
+                // i dont apply change state on _currentState
+                break;
+            case SwipeStates.End:
+                // TODO: to think out
+                // should be the ending of the fight some how calculated
+                break;
+            default:
+                throw new ArgumentOutOfRangeException();
+        }
+
+        switch (swipe.SwipeDirection)
+        {
+            case SwipeDirections.None:
+                break;
+            case SwipeDirections.ToRight:
+                break;
+            case SwipeDirections.ToLeft:
+                break;
+            case SwipeDirections.ToUp:
+                break;
+            case SwipeDirections.ToDown:
+                break;
+            case SwipeDirections.Thrust:
+                break;
+            default:
+                throw new ArgumentOutOfRangeException();
+        }
+        // for now just usual routine
+    }
+
+    private void MoveToStartHitPosition(Swipe swipe)
+    {
+        _currentSwipe = swipe;
+        // tween to start hit position
     }
 
     private void TargetDefaultPosition()
     {
-         SetLocalPosition(_ctx.BodyParts.RHTarget,_ctx.AttackMap.RHDefaultPoint);
+        SetLocalPosition(_ctx.BodyParts.RHTarget, _ctx.AttackMap.RHDefaultPoint);
     }
 
     private void SetLocalPosition(Transform obj, PointView toPoint)
     {
         obj.localPosition = toPoint.transform.localPosition;
     }
-    
+
     public void Dispose()
     {
         _toDispose.Dispose();
     }
-    
+
     // replace with task is required
     /*private IEnumerator IEBlend()
     {
