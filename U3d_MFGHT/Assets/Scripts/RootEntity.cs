@@ -49,7 +49,7 @@ public class RootEntity
     
     public async void ActivateInput(ReactiveProperty<bool> isSwipeEnabled)
     {
-        await Task.Delay(5000);
+        await Task.Delay(2000);
         Debug.Log("Enabling swipe");
         isSwipeEnabled.Value = true;
     }

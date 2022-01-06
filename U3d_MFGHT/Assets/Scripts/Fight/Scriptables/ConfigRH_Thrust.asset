@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f903ee1b487f49a3b5acc0df643f2301, type: 3}
-  m_Name: ConfigRightHandFromRightToLeft
+  m_Name: ConfigRH_Thrust
   m_EditorClassIdentifier: 
   _defaultLocalPosition: 0
-  _fromLocalPosition: 4
-  _toLocalPosition: 3
+  _fromLocalPosition: 5
+  _toLocalPosition: 6
   _blendTime: 0.5
   _amplitude: 0.4
   _speedCurve:

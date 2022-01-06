@@ -33,6 +33,8 @@ public enum AttackPointPositions
     RightDown,
     RightLeft,
     RightRight,
+    RightBack,
+    RightForward,
     OverridePositionWithVector
 }
 

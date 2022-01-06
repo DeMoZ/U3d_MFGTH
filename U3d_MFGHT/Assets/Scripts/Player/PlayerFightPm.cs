@@ -28,6 +28,7 @@ public class PlayerFightPm : IDisposable
         _ctx = ctx;
         _toDispose = new CompositeDisposable();
 
+        _currentSwipe = new Swipe();
         _ctx.OnSwipe.Subscribe(OnSwipe).AddTo(_toDispose);
 
         TargetDefaultPosition();
@@ -35,21 +36,23 @@ public class PlayerFightPm : IDisposable
 
     private void OnSwipe(Swipe swipe)
     {
-        Debug.LogWarning($"PlayerFightPm Received on swipe  {swipe.SwipeState},{swipe.SwipeDirection}");
+        Debug.Log($"PlayerFightPm Received on swipe  {swipe.SwipeState},{swipe.SwipeDirection}");
 
         // --> TODO: calculation depends on current attack state
         // return if something , or even do something different
         // <--
-        
+
         // TODO: DELETE THIS. It brake all the mechanic. Created in test purposes 
         if (swipe.SwipeState == SwipeStates.None)
         {
             _currentSwipe = swipe;
             //.RHStartPoints.First(p=>p.AttackPointPosition==AttackPointPositions.Default).transform.position,
-            Tween myTween = _ctx.BodyParts.RHTarget.DOMove(_ctx.AttackMap.RHDefaultPoint.transform.position, 2)
-                .SetEase(Ease.OutQuint);
+
+            MoveToDefaultPosition();
             //.OnComplete(myFunction);
             //BrakeRoutines();
+
+            Debug.LogWarning("return");
             return;
         }
 
@@ -62,9 +65,11 @@ public class PlayerFightPm : IDisposable
             case SwipeStates.Start:
                 if (swipe.SwipeState == SwipeStates.Change)
                 {
+                    MoveToStartHitPosition(swipe);
                 }
                 else if (swipe.SwipeState == SwipeStates.End)
                 {
+                    MoveToDefaultPosition();
                 }
 
                 break;
@@ -99,10 +104,35 @@ public class PlayerFightPm : IDisposable
         // for now just usual routine
     }
 
+    private void MoveToDefaultPosition()
+    {
+        Debug.LogWarning("MoveToDefaultPosition");
+        _currentTween = _ctx.BodyParts.RHTarget.DOMove(_ctx.AttackMap.RHDefaultPoint.transform.position, 0.3f)
+            .SetEase(Ease.OutQuint);
+    }
+
     private void MoveToStartHitPosition(Swipe swipe)
     {
+        Debug.LogWarning($"MoveToStartHitPosition {swipe.SwipeDirection}");
         _currentSwipe = swipe;
-        // tween to start hit position
+        
+        // TODO: attention !!! here I take all sequences by first direction. In future here should be orderign is sequenses. 
+        var sequience = _ctx.AttackScheme._attackSequences.Where(s => 
+            s._attacks[0].SewipeDireciton == swipe.SwipeDirection).ToList();
+
+        if (sequience.Count == 0)
+        {
+            // return or brake whatever we where in the middle
+            return;
+        }
+
+        var positionType = sequience[0]._attacks[0].AttackConfig.GetFromLocalPosition();
+        //Debug.Log(positionType);
+        var mapPoint = _ctx.AttackMap.RHStartPoints.First(p => p.AttackPointPosition == positionType); // and you better be found
+        
+        _currentTween = _ctx.BodyParts.RHTarget.DOMove(mapPoint.transform.position, 0.3f)
+            .SetEase(Ease.OutQuint);
+
     }
 
     private void TargetDefaultPosition()

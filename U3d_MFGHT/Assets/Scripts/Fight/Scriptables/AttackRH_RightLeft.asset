@@ -9,8 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 02a1538abd1b4a63be1657bbcaeb876e, type: 3}
-  m_Name: Scheme
+  m_Script: {fileID: 11500000, guid: 6c54bb8dbfb24bb9afbbfbe168c6d7e1, type: 3}
+  m_Name: AttackRH_RightLeft
   m_EditorClassIdentifier: 
-  _attackSequences:
-  - {fileID: 11400000, guid: fd198cac47c5a7e49b555ca06c07e0fe, type: 2}
+  SewipeDireciton: 2
+  AttackConfig: {fileID: 11400000, guid: 7c4f191d041a32b4ebf32f24d99b6553, type: 2}
