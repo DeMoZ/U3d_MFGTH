@@ -1,3 +1,4 @@
+using System;
 using DG.Tweening;
 using UnityEngine;
 
@@ -13,24 +14,28 @@ public class DefaultAttackState : AbstractAttackState
 
     protected override async void OnSwipe(Swipe swipe)
     {
+        if (swipe.SwipeState == SwipeStates.None)
+        {
+            Debug.Log("DefaultAttackState received skip (None state)");
+            return;
+        }
         //--> base?
         _currentSwipe = swipe;
         if (_currentTween.IsActive() && _currentTween.IsPlaying())
             await _currentTween.AsyncWaitForCompletion();
         //<--
-        
-        _ctx.CurrentAttackSequences = GetSequencesByDirection(_ctx.AttackScheme._attackSequences, 0);
-
-        if (_ctx.CurrentAttackSequences.Count == 0)
+        switch (swipe.SwipeState)
         {
-            Debug.Log("_ctx.CurrentAttackSequences.Count == 0; stay in default");
-            return; // stay in default state
+            case SwipeStates.Start:
+                _ctx.CurrentAttackSequences = GetSequencesByDirection(_ctx.AttackScheme._attackSequences, 0);
+                Debug.Log($"DefaultAttackState _ctx.CurrentAttackSequences.Count == {_ctx.CurrentAttackSequences.Count}");
+                //Debug.Log($" Default _ctx.CurrentAttackSequences == null {_ctx.CurrentAttackSequences == null}");
+                _ctx.OnAttackSequences.Invoke(_ctx.CurrentAttackSequences);
+                _ctx.OnAttackStateChanged.Invoke(AttackStatesTypes.Start);
+                break;
+            default:
+                Debug.LogError($"DefaultAttackState received no state for {swipe.SwipeState}; {swipe.SwipeDirection}");
+                break;
         }
-
-        /*Debug.Log($"_ctx.CurrentAttackSequences.Count == {_ctx.CurrentAttackSequences.Count}");
-        Debug.Log($" Default _ctx.CurrentAttackSequences == null {_ctx.CurrentAttackSequences == null}");*/
-
-        _ctx.OnAttackSequences.Invoke(_ctx.CurrentAttackSequences);
-        _ctx.OnAttackStateChanged.Invoke(AttackStatesTypes.Start);
     }
 }

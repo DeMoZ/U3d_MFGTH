@@ -43,7 +43,7 @@ public class PlayerAttackPm : IDisposable
 
     private void OnStateChanged(AttackStatesTypes state)
     {
-        Debug.Log($" OnStateChanged _ctx.CurrentAttackSequences == null {_currentAttackSequences == null}");
+        //Debug.Log($" OnStateChanged _ctx.CurrentAttackSequences == null {_currentAttackSequences == null}");
         _currentAttackState?.Dispose();
         switch (state)
         {

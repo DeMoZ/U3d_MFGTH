@@ -19,8 +19,8 @@ public class SwipeCatcher : MonoBehaviour, IPointerDownHandler, IBeginDragHandle
     private SwipeDirections _swipeDirection;
 
     private Coroutine _thrustDelayRoutine;
-    private WaitForSeconds _delaySeconds = new WaitForSeconds(0.05f); 
-    
+    private WaitForSeconds _delaySeconds = new WaitForSeconds(0.05f);
+
     public void SetContext(Context ctx)
     {
         _ctx = ctx;
@@ -39,8 +39,8 @@ public class SwipeCatcher : MonoBehaviour, IPointerDownHandler, IBeginDragHandle
         });
 
         //Debug.Log("OnPointerDown");
-        
-        if(_thrustDelayRoutine!=null)
+
+        if (_thrustDelayRoutine != null)
             StopCoroutine(_thrustDelayRoutine);
 
         _thrustDelayRoutine = StartCoroutine(IEDelayThrustRoutine(eventData));
@@ -49,17 +49,17 @@ public class SwipeCatcher : MonoBehaviour, IPointerDownHandler, IBeginDragHandle
     private IEnumerator IEDelayThrustRoutine(PointerEventData eventData)
     {
         yield return _delaySeconds;
-        
+
         _touchPos = eventData.position;
         _swipeDirection = SwipeDirections.Thrust;
-        
+
         _ctx.OnSwipe.Execute(new Swipe
         {
             SwipeState = SwipeStates.Start,
             SwipeDirection = _swipeDirection
         });
-        
-        _thrustDelayRoutine = null;
+
+        //_thrustDelayRoutine = null;
     }
 
     public void OnBeginDrag(PointerEventData eventData)
@@ -69,7 +69,7 @@ public class SwipeCatcher : MonoBehaviour, IPointerDownHandler, IBeginDragHandle
             StopCoroutine(_thrustDelayRoutine);
             _thrustDelayRoutine = null;
         }
-        
+
         var nextPos = eventData.position;
 
         if (TryCalculateSwipeDirection(nextPos, out var direction))
@@ -83,7 +83,7 @@ public class SwipeCatcher : MonoBehaviour, IPointerDownHandler, IBeginDragHandle
 
         _ctx.OnSwipe.Execute(new Swipe
         {
-            SwipeState = SwipeStates.Change,
+            SwipeState = _thrustDelayRoutine == null ? SwipeStates.Start : SwipeStates.Change,
             SwipeDirection = _swipeDirection
         });
     }
@@ -177,13 +177,14 @@ public class SwipeCatcher : MonoBehaviour, IPointerDownHandler, IBeginDragHandle
         }
 
         if (0f <= angle && angle < 45.0f) direction = SwipeDirections.ToUp;
-        else if (45.0f <= angle && angle < 135.0f) direction = sign ? SwipeDirections.ToLeft: SwipeDirections.ToRight;
+        else if (45.0f <= angle && angle < 135.0f) direction = sign ? SwipeDirections.ToLeft : SwipeDirections.ToRight;
         else if (135.0f <= angle && angle <= 180.0f) direction = SwipeDirections.ToDown;
-        
+
         return true;
     }
 
     private string _debugShowValue = "o";
+
     private void DebugShowArrowInInspector()
     {
         _debugShowValue = _swipeDirection switch
