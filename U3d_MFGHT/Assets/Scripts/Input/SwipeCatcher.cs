@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using UniRx;
 using UnityEngine.EventSystems;
@@ -17,6 +18,9 @@ public class SwipeCatcher : MonoBehaviour, IPointerDownHandler, IBeginDragHandle
     private Vector2 _touchPos;
     private SwipeDirections _swipeDirection;
 
+    private Coroutine _thrustDelayRoutine;
+    private WaitForSeconds _delaySeconds = new WaitForSeconds(0.05f); 
+    
     public void SetContext(Context ctx)
     {
         _ctx = ctx;
@@ -35,19 +39,37 @@ public class SwipeCatcher : MonoBehaviour, IPointerDownHandler, IBeginDragHandle
         });
 
         //Debug.Log("OnPointerDown");
+        
+        if(_thrustDelayRoutine!=null)
+            StopCoroutine(_thrustDelayRoutine);
 
+        _thrustDelayRoutine = StartCoroutine(IEDelayThrustRoutine(eventData));
+    }
+
+    private IEnumerator IEDelayThrustRoutine(PointerEventData eventData)
+    {
+        yield return _delaySeconds;
+        
         _touchPos = eventData.position;
         _swipeDirection = SwipeDirections.Thrust;
-
+        
         _ctx.OnSwipe.Execute(new Swipe
         {
             SwipeState = SwipeStates.Start,
             SwipeDirection = _swipeDirection
         });
+        
+        _thrustDelayRoutine = null;
     }
 
     public void OnBeginDrag(PointerEventData eventData)
     {
+        if (_thrustDelayRoutine != null)
+        {
+            StopCoroutine(_thrustDelayRoutine);
+            _thrustDelayRoutine = null;
+        }
+        
         var nextPos = eventData.position;
 
         if (TryCalculateSwipeDirection(nextPos, out var direction))

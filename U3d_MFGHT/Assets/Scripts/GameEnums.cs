@@ -16,14 +16,14 @@ public enum SwipeDirections
     Thrust = 5, // Lunge // колящий удар
 }
 
-public enum FightStates
+public enum AttackStatesTypes
 {
-    None,
-    Idle,
-    StartPosition,
-    Hold,
-    Hit,
-    End
+    Default,
+    Start,
+    PowerUp,
+    End,
+    ShortEnd,
+    LongEnd
 }
 
 public enum AttackPointPositions

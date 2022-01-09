@@ -28,14 +28,14 @@ public class PlayerEntity : IDisposable
         var bodyParts = playerView.BodyParts;
         var attackScheme = playerView.AttackScheme;
         
-        var playerFightCtx = new PlayerFightPm.Ctx
+        var playerAttackCtx = new PlayerAttackPm.Ctx
         {
             AttackScheme = attackScheme,
             BodyParts = bodyParts,
             AttackMap = attackMap,
             OnSwipe = _ctx.OnSwipe
         };
-        var playerFightPm = new PlayerFightPm(playerFightCtx);
+        var playerFightPm = new PlayerAttackPm(playerAttackCtx);
     }
 
     public void Dispose()
