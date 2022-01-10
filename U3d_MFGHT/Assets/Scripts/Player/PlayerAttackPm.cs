@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using DG.Tweening;
 using UniRx;
 using UnityEngine;
@@ -19,31 +18,30 @@ public class PlayerAttackPm : IDisposable
 
     private Swipe _currentSwipe;
     private Tween _currentTween;
-    private List<AttackSequence> _currentAttackSequences;
-    private AttackConfig _currentAttackConfig;
     private IAttackState _currentAttackState;
 
-    private Action<AttackStatesTypes> _onAttackStateChange;
-    private Action<List<AttackSequence>> _onAttackSequences;
+    private ReactiveCollection<AttackSequence> _currentAttackSequences;
+    private ReactiveProperty<AttackConfig> _currentAttackConfig;
 
+    private IReactiveCommand<AttackStatesTypes> _onAttackStateChange;
     public PlayerAttackPm(Ctx ctx)
     {
         _ctx = ctx;
         _toDispose = new CompositeDisposable();
 
         _currentSwipe = new Swipe();
-        _onAttackSequences = OnAttackSequences;
-        _onAttackStateChange = OnStateChanged;
-
-        OnStateChanged(AttackStatesTypes.Default);
+        _currentAttackSequences = new ReactiveCollection<AttackSequence>();
+        _currentAttackConfig = new ReactiveProperty<AttackConfig>();
+        
+        _onAttackStateChange = new ReactiveCommand<AttackStatesTypes>();
+        _onAttackStateChange.Subscribe(OnStateChanged).AddTo(_toDispose);
+        _onAttackStateChange.Execute(AttackStatesTypes.Default);
     }
-
-    private void OnAttackSequences(List<AttackSequence> sequences) =>
-        _currentAttackSequences = sequences;
 
     private void OnStateChanged(AttackStatesTypes state)
     {
-        //Debug.Log($" OnStateChanged _ctx.CurrentAttackSequences == null {_currentAttackSequences == null}");
+        // Debug.Log($"<color=#FF0000>_ctx.CurrentAttackSequences.Count</color> = {_currentAttackSequences.Count}");
+        
         _currentAttackState?.Dispose();
         switch (state)
         {
@@ -70,11 +68,6 @@ public class PlayerAttackPm : IDisposable
         }
     }
 
-    private void SetLocalPosition(Transform obj, PointView toPoint)
-    {
-        obj.localPosition = toPoint.transform.localPosition;
-    }
-
     public void Dispose()
     {
         _toDispose.Dispose();
@@ -93,8 +86,6 @@ public class PlayerAttackPm : IDisposable
 
             OnAttackStateChanged = _onAttackStateChange,
             OnSwipe = _ctx.OnSwipe,
-            
-            OnAttackSequences = _onAttackSequences
         };
         return new DefaultAttackState(attackStateCtx);
     }
@@ -112,7 +103,6 @@ public class PlayerAttackPm : IDisposable
 
             OnAttackStateChanged = _onAttackStateChange,
             OnSwipe = _ctx.OnSwipe,
-            OnAttackSequences = _onAttackSequences
         };
 
         return new StartAttackState(attackStateCtx);
@@ -135,7 +125,6 @@ public class PlayerAttackPm : IDisposable
 
             OnAttackStateChanged = _onAttackStateChange,
             OnSwipe = _ctx.OnSwipe,
-            OnAttackSequences = _onAttackSequences
         };
 
         return new EndAttackState(attackStateCtx);

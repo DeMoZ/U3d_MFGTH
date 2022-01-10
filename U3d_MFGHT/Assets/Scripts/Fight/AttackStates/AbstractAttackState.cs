@@ -18,15 +18,14 @@ public abstract class AbstractAttackState : IAttackState, IDisposable
     public struct Ctx
     {
         public Swipe CurrentSwipe;
-        public AttackConfig CurrentAttackConfig;
+        public ReactiveProperty<AttackConfig> CurrentAttackConfig;
         public AttackScheme AttackScheme;
         public BodyParts BodyParts;
         public AttackMapView AttackMap;
-        public List<AttackSequence> CurrentAttackSequences;
-        public IReactiveCommand<Swipe> OnSwipe;
+        public ReactiveCollection<AttackSequence> CurrentAttackSequences;
         
-        public Action<List<AttackSequence>> OnAttackSequences;
-        public Action<AttackStatesTypes> OnAttackStateChanged;
+        public IReactiveCommand<Swipe> OnSwipe;
+        public IReactiveCommand<AttackStatesTypes> OnAttackStateChanged;
     }
 
     protected Ctx _ctx;
@@ -43,18 +42,9 @@ public abstract class AbstractAttackState : IAttackState, IDisposable
         _toDispose = new CompositeDisposable();
         _ctx.OnSwipe.Subscribe(OnSwipe).AddTo(_toDispose);
     }
-
-    /*protected bool NeedToSkipOnFirstCall()
-    {
-        if (_firstCallSkipped)
-            return false;
-
-        _firstCallSkipped = true;
-        return true;
-    }*/
     
-    protected List<AttackSequence> GetSequencesByDirection(List<AttackSequence> sequences, int attackNumber) => 
-        sequences.Where(s => s._attacks[attackNumber].SewipeDireciton == _currentSwipe.SwipeDirection).ToList();
+    protected IEnumerable<AttackSequence> GetSequencesByDirection(List<AttackSequence> sequences, int attackNumber) => 
+        sequences.Where(s => s._attacks[attackNumber].SewipeDireciton == _currentSwipe.SwipeDirection);
 
     public void Dispose()
     {

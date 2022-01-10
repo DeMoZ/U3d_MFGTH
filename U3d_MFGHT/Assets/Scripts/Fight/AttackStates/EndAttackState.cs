@@ -6,13 +6,12 @@ public class EndAttackState : AbstractAttackState
 {
     public EndAttackState(Ctx ctx) : base(ctx)
     {
-        Debug.Log("EndAttackState ctx");
+        Debug.Log("<color=#00FF00>EndAttackState ctx</color>");
+
         //Debug.Log($"Start _ctx.CurrentAttackSequences == null {_ctx.CurrentAttackSequences == null}");
         //Debug.Log($"_ctx.CurrentAttackSequences.Count == {_ctx.CurrentAttackSequences.Count}");
-        _ctx.CurrentAttackConfig = _ctx.CurrentAttackSequences[0]._attacks[0].AttackConfig;
-        var positionType = _ctx.CurrentAttackConfig.GetToLocalPosition();
-        var mapPoint =
-            _ctx.AttackMap.RHEndPoints.First(p => p.AttackPointPosition == positionType); // and you better be found
+        var positionType = _ctx.CurrentAttackConfig.Value.GetToLocalPosition();
+        var mapPoint = _ctx.AttackMap.RHEndPoints.First(p => p.AttackPointPosition == positionType);
 
         _currentTween = _ctx.BodyParts.RHTarget.DOMove(mapPoint.transform.position, TimeAttack)
             .SetEase(Ease.InOutQuint);
@@ -53,6 +52,6 @@ public class EndAttackState : AbstractAttackState
     {
         await _currentTween.AsyncWaitForCompletion();
         //_ctx.OnAttackStateChanged.Invoke(AttackStatesTypes.ShortEnd); // TODO: go to ShortEnd. For now it is to default
-        _ctx.OnAttackStateChanged.Invoke(AttackStatesTypes.Default);
+        _ctx.OnAttackStateChanged.Execute(AttackStatesTypes.Default);
     }
 }

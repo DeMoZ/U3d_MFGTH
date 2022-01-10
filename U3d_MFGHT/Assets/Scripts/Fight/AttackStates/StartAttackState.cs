@@ -6,16 +6,16 @@ public class StartAttackState : AbstractAttackState
 {
     public StartAttackState(Ctx ctx) : base(ctx)
     {
-        Debug.Log("StartAttackState ctx");
-
-        Debug.Log($"_ctx.CurrentAttackSequences.Count == {_ctx.CurrentAttackSequences.Count}");
-        _ctx.CurrentAttackConfig = _ctx.CurrentAttackSequences[0]._attacks[0].AttackConfig;
-        var positionType = _ctx.CurrentAttackConfig.GetFromLocalPosition();
+        Debug.Log("<color=#00FF00>StartAttackState ctx</color>");
+        Debug.Log($"<color=#FF0000>_ctx.CurrentAttackSequences.Count</color> = {_ctx.CurrentAttackSequences.Count}");
+        _ctx.CurrentAttackConfig.Value = _ctx.CurrentAttackSequences[0]._attacks[0].AttackConfig;
+        var positionType = _ctx.CurrentAttackConfig.Value.GetFromLocalPosition();
         var mapPoint =
             _ctx.AttackMap.RHStartPoints.First(p => p.AttackPointPosition == positionType); // and you better be found
 
         _currentTween = _ctx.BodyParts.RHTarget.DOMove(mapPoint.transform.position, TimeToStart)
             .SetEase(Ease.InOutQuint);
+
     }
 
     protected async override void OnSwipe(Swipe swipe)
@@ -36,15 +36,16 @@ public class StartAttackState : AbstractAttackState
         switch (swipe.SwipeState)
         {
             case SwipeStates.Change:
-                Debug.Log(
-                    $"Start attack received change attack direction to {swipe.SwipeState}; {swipe.SwipeDirection}");
-                _ctx.CurrentAttackSequences = GetSequencesByDirection(_ctx.AttackScheme._attackSequences, 0);
-                _ctx.OnAttackSequences.Invoke(_ctx.CurrentAttackSequences);
-                _ctx.OnAttackStateChanged.Invoke(AttackStatesTypes.Start);
+                Debug.Log($"Start attack received change  direction to {swipe.SwipeState}; {swipe.SwipeDirection}");
+                _ctx.CurrentAttackSequences.Clear();
+                var sequences = GetSequencesByDirection(_ctx.AttackScheme._attackSequences, 0);
+                foreach (var sequence in sequences) 
+                    _ctx.CurrentAttackSequences.Add(sequence);
+                _ctx.OnAttackStateChanged.Execute(AttackStatesTypes.Start);
                 break;
             case SwipeStates.End:
 
-                _ctx.OnAttackStateChanged.Invoke(AttackStatesTypes.End);
+                _ctx.OnAttackStateChanged.Execute(AttackStatesTypes.End);
                 break;
             default:
                 Debug.LogError($"StartAttackState received no state for {swipe.SwipeState}; {swipe.SwipeDirection}");
