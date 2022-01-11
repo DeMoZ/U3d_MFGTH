@@ -8,10 +8,10 @@ public class StartAttackState : AbstractAttackState
     {
         Debug.Log("<color=#00FF00>StartAttackState ctx</color>");
         Debug.Log($"<color=#FF0000>_ctx.CurrentAttackSequences.Count</color> = {_ctx.CurrentAttackSequences.Count}");
+        
         _ctx.CurrentAttackConfig.Value = _ctx.CurrentAttackSequences[0]._attacks[0].AttackConfig;
         var positionType = _ctx.CurrentAttackConfig.Value.GetFromLocalPosition();
-        var mapPoint =
-            _ctx.AttackMap.RHStartPoints.First(p => p.AttackPointPosition == positionType); // and you better be found
+        var mapPoint = _ctx.AttackMap.RHStartPoints.First(p => p.AttackPointPosition == positionType);
 
         _currentTween = _ctx.BodyParts.RHTarget.DOMove(mapPoint.transform.position, TimeToStart)
             .SetEase(Ease.InOutQuint);
@@ -38,13 +38,10 @@ public class StartAttackState : AbstractAttackState
             case SwipeStates.Change:
                 Debug.Log($"Start attack received change  direction to {swipe.SwipeState}; {swipe.SwipeDirection}");
                 _ctx.CurrentAttackSequences.Clear();
-                var sequences = GetSequencesByDirection(_ctx.AttackScheme._attackSequences, 0);
-                foreach (var sequence in sequences) 
-                    _ctx.CurrentAttackSequences.Add(sequence);
+                _ctx.CurrentAttackSequences.AddRange(GetSequencesByDirection(_ctx.AttackScheme._attackSequences, 0));
                 _ctx.OnAttackStateChanged.Execute(AttackStatesTypes.Start);
                 break;
             case SwipeStates.End:
-
                 _ctx.OnAttackStateChanged.Execute(AttackStatesTypes.End);
                 break;
             default:

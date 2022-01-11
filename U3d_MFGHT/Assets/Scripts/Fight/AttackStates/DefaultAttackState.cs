@@ -28,10 +28,7 @@ public class DefaultAttackState : AbstractAttackState
             case SwipeStates.Start:
                 Debug.Log("DefaultState -> StartState");
                 _ctx.CurrentAttackSequences.Clear();
-                var sequences = GetSequencesByDirection(_ctx.AttackScheme._attackSequences, 0);
-                foreach (var sequence in sequences) 
-                    _ctx.CurrentAttackSequences.Add(sequence);
-
+                _ctx.CurrentAttackSequences.AddRange(GetSequencesByDirection(_ctx.AttackScheme._attackSequences, 0));
                 Debug.Log($"<color=#FF0000>_ctx.CurrentAttackSequences.Count</color> = {_ctx.CurrentAttackSequences.Count}");
                 _ctx.OnAttackStateChanged.Execute(AttackStatesTypes.Start);
                 break;

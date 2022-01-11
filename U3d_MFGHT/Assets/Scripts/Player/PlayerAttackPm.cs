@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using DG.Tweening;
 using UniRx;
 using UnityEngine;
@@ -19,10 +20,10 @@ public class PlayerAttackPm : IDisposable
     private Swipe _currentSwipe;
     private Tween _currentTween;
     private IAttackState _currentAttackState;
-
-    private ReactiveCollection<AttackSequence> _currentAttackSequences;
+    private List<AttackSequence> _currentAttackSequences;
+    
     private ReactiveProperty<AttackConfig> _currentAttackConfig;
-
+    
     private IReactiveCommand<AttackStatesTypes> _onAttackStateChange;
     public PlayerAttackPm(Ctx ctx)
     {
@@ -30,8 +31,8 @@ public class PlayerAttackPm : IDisposable
         _toDispose = new CompositeDisposable();
 
         _currentSwipe = new Swipe();
-        _currentAttackSequences = new ReactiveCollection<AttackSequence>();
         _currentAttackConfig = new ReactiveProperty<AttackConfig>();
+        _currentAttackSequences = new List<AttackSequence>();
         
         _onAttackStateChange = new ReactiveCommand<AttackStatesTypes>();
         _onAttackStateChange.Subscribe(OnStateChanged).AddTo(_toDispose);

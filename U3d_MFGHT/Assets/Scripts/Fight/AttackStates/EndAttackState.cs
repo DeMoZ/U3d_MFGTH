@@ -7,10 +7,8 @@ public class EndAttackState : AbstractAttackState
     public EndAttackState(Ctx ctx) : base(ctx)
     {
         Debug.Log("<color=#00FF00>EndAttackState ctx</color>");
-
-        //Debug.Log($"Start _ctx.CurrentAttackSequences == null {_ctx.CurrentAttackSequences == null}");
-        //Debug.Log($"_ctx.CurrentAttackSequences.Count == {_ctx.CurrentAttackSequences.Count}");
         var positionType = _ctx.CurrentAttackConfig.Value.GetToLocalPosition();
+        Debug.Log($"<color=#FF0000>_ctx.CurrentAttackSequences.Count</color> = {_ctx.CurrentAttackSequences.Count}");
         var mapPoint = _ctx.AttackMap.RHEndPoints.First(p => p.AttackPointPosition == positionType);
 
         _currentTween = _ctx.BodyParts.RHTarget.DOMove(mapPoint.transform.position, TimeAttack)

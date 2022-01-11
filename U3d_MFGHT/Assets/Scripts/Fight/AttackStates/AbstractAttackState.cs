@@ -22,7 +22,7 @@ public abstract class AbstractAttackState : IAttackState, IDisposable
         public AttackScheme AttackScheme;
         public BodyParts BodyParts;
         public AttackMapView AttackMap;
-        public ReactiveCollection<AttackSequence> CurrentAttackSequences;
+        public List<AttackSequence> CurrentAttackSequences;
         
         public IReactiveCommand<Swipe> OnSwipe;
         public IReactiveCommand<AttackStatesTypes> OnAttackStateChanged;
@@ -43,8 +43,8 @@ public abstract class AbstractAttackState : IAttackState, IDisposable
         _ctx.OnSwipe.Subscribe(OnSwipe).AddTo(_toDispose);
     }
     
-    protected IEnumerable<AttackSequence> GetSequencesByDirection(List<AttackSequence> sequences, int attackNumber) => 
-        sequences.Where(s => s._attacks[attackNumber].SewipeDireciton == _currentSwipe.SwipeDirection);
+    protected List<AttackSequence> GetSequencesByDirection(List<AttackSequence> sequences, int attackNumber) => 
+        sequences.Where(s => s._attacks[attackNumber].SewipeDireciton == _currentSwipe.SwipeDirection).ToList();
 
     public void Dispose()
     {
