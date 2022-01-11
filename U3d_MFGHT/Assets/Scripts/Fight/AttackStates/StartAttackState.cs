@@ -1,11 +1,28 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using DG.Tweening;
+using UniRx;
 using UnityEngine;
 
 public class StartAttackState : AbstractAttackState
 {
-    public StartAttackState(Ctx ctx) : base(ctx)
+    public new struct Ctx
     {
+        public BodyParts BodyParts;
+        public AttackMapView AttackMap;
+        public AttackScheme AttackScheme;
+        public List<AttackSequence> CurrentAttackSequences;
+        public ReactiveProperty<AttackConfig> CurrentAttackConfig;
+        public ReactiveCommand<AttackStatesTypes> OnAttackStateChanged;
+        public ReactiveCommand<Swipe> OnSwipe;
+    }
+
+    private Ctx _ctx;
+    
+    public StartAttackState(Ctx ctx) : base(new AbstractAttackState.Ctx{OnSwipe = ctx.OnSwipe})
+    {
+        _ctx = ctx;
+        
         Debug.Log("<color=#00FF00>StartAttackState ctx</color>");
         Debug.Log($"<color=#FF0000>_ctx.CurrentAttackSequences.Count</color> = {_ctx.CurrentAttackSequences.Count}");
         

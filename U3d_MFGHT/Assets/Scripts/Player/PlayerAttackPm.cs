@@ -11,26 +11,26 @@ public class PlayerAttackPm : IDisposable
         public AttackScheme AttackScheme;
         public BodyParts BodyParts;
         public AttackMapView AttackMap;
-        public IReactiveCommand<Swipe> OnSwipe;
+        public ReactiveCommand<Swipe> OnSwipe;
     }
 
     private Ctx _ctx;
     private CompositeDisposable _toDispose;
 
-    private Swipe _currentSwipe;
+    //private Swipe _currentSwipe;
     private Tween _currentTween;
     private IAttackState _currentAttackState;
     private List<AttackSequence> _currentAttackSequences;
     
     private ReactiveProperty<AttackConfig> _currentAttackConfig;
     
-    private IReactiveCommand<AttackStatesTypes> _onAttackStateChange;
+    private ReactiveCommand<AttackStatesTypes> _onAttackStateChange;
     public PlayerAttackPm(Ctx ctx)
     {
         _ctx = ctx;
         _toDispose = new CompositeDisposable();
 
-        _currentSwipe = new Swipe();
+        //_currentSwipe = new Swipe();
         _currentAttackConfig = new ReactiveProperty<AttackConfig>();
         _currentAttackSequences = new List<AttackSequence>();
         
@@ -78,8 +78,6 @@ public class PlayerAttackPm : IDisposable
     {
         var attackStateCtx = new DefaultAttackState.Ctx
         {
-            CurrentSwipe = _currentSwipe,
-            CurrentAttackConfig = _currentAttackConfig,
             CurrentAttackSequences = _currentAttackSequences,
             AttackScheme = _ctx.AttackScheme,
             BodyParts = _ctx.BodyParts,
@@ -95,7 +93,6 @@ public class PlayerAttackPm : IDisposable
     {
         var attackStateCtx = new StartAttackState.Ctx
         {
-            CurrentSwipe = _currentSwipe,
             CurrentAttackConfig = _currentAttackConfig,
             CurrentAttackSequences = _currentAttackSequences,
             AttackScheme = _ctx.AttackScheme,
@@ -117,10 +114,8 @@ public class PlayerAttackPm : IDisposable
     {
         var attackStateCtx = new EndAttackState.Ctx
         {
-            CurrentSwipe = _currentSwipe,
             CurrentAttackConfig = _currentAttackConfig,
             CurrentAttackSequences = _currentAttackSequences,
-            AttackScheme = _ctx.AttackScheme,
             BodyParts = _ctx.BodyParts,
             AttackMap = _ctx.AttackMap,
 

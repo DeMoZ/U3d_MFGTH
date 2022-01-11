@@ -17,21 +17,12 @@ public abstract class AbstractAttackState : IAttackState, IDisposable
 
     public struct Ctx
     {
-        public Swipe CurrentSwipe;
-        public ReactiveProperty<AttackConfig> CurrentAttackConfig;
-        public AttackScheme AttackScheme;
-        public BodyParts BodyParts;
-        public AttackMapView AttackMap;
-        public List<AttackSequence> CurrentAttackSequences;
-        
         public IReactiveCommand<Swipe> OnSwipe;
-        public IReactiveCommand<AttackStatesTypes> OnAttackStateChanged;
     }
 
     protected Ctx _ctx;
     protected Swipe _currentSwipe;
     protected Tween _currentTween;
-    protected bool _firstCallSkipped;
     private CompositeDisposable _toDispose;
 
     protected abstract void OnSwipe(Swipe swipe);

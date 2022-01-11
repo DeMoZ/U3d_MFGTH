@@ -1,10 +1,26 @@
+using System.Collections.Generic;
 using DG.Tweening;
+using UniRx;
 using UnityEngine;
 
 public class DefaultAttackState : AbstractAttackState
 {
-    public DefaultAttackState(Ctx ctx) : base(ctx)
+    public new struct Ctx
     {
+        public BodyParts BodyParts;
+        public AttackMapView AttackMap;
+        public AttackScheme AttackScheme;
+        public List<AttackSequence> CurrentAttackSequences;
+        public ReactiveCommand<AttackStatesTypes> OnAttackStateChanged;
+        public ReactiveCommand<Swipe> OnSwipe;
+    }
+
+    private Ctx _ctx;
+    
+    public DefaultAttackState(Ctx ctx) : base(new AbstractAttackState.Ctx{OnSwipe = ctx.OnSwipe})
+    {
+        _ctx = ctx;
+
         Debug.Log("<color=#00FF00> DefaultState ctx</color>");
         _currentTween = _ctx.BodyParts.RHTarget.DOMove(_ctx.AttackMap.RHDefaultPoint.transform.position, TimeToDefault)
             .SetEase(Ease.OutQuint);

@@ -17,8 +17,8 @@ public class RootEntity
         _context = context;
 
         ReactiveProperty<bool> isSwipeEnabled = new ReactiveProperty<bool>(false);
-        IReactiveCommand<Swipe> onSwipe = new ReactiveCommand<Swipe>();
-        IReactiveCommand<Swipe> onSwipeValidated = new ReactiveCommand<Swipe>();
+        ReactiveCommand<Swipe> onSwipe = new ReactiveCommand<Swipe>();
+        ReactiveCommand<Swipe> onSwipeValidated = new ReactiveCommand<Swipe>();
 
         var swipeCatcher = _context.ResourceLoader.Get<SwipeCatcher>(_context.ResourceLoader.UIPrefabs.SwipeCatcher, _context.UIParent);
 

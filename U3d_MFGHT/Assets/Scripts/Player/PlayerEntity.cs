@@ -7,7 +7,7 @@ public class PlayerEntity : IDisposable
     public struct Ctx
     {
         public ResourceLoader ResourceLoader;
-        public IReactiveCommand<Swipe> OnSwipe;
+        public ReactiveCommand<Swipe> OnSwipe;
     }
 
     private Ctx _ctx;
