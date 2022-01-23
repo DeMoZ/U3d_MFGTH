@@ -30,6 +30,7 @@ public class PlayerEntity : IDisposable
         
         var playerAttackCtx = new PlayerAttackPm.Ctx
         {
+            PlayerTransform =  playerView.transform,
             AttackScheme = attackScheme,
             BodyParts = bodyParts,
             AttackMap = attackMap,

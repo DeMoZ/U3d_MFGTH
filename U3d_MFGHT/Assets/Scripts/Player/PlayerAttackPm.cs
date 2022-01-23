@@ -8,6 +8,7 @@ public class PlayerAttackPm : IDisposable
 {
     public struct Ctx
     {
+        public Transform PlayerTransform;
         public AttackScheme AttackScheme;
         public BodyParts BodyParts;
         public AttackMapView AttackMap;
@@ -114,6 +115,7 @@ public class PlayerAttackPm : IDisposable
     {
         var attackStateCtx = new EndAttackState.Ctx
         {
+            PlayerTransform = _ctx.PlayerTransform,
             CurrentAttackConfig = _currentAttackConfig,
             CurrentAttackSequences = _currentAttackSequences,
             BodyParts = _ctx.BodyParts,

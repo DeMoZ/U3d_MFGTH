@@ -13,7 +13,7 @@ public abstract class AbstractAttackState : IAttackState, IDisposable
 {
     protected const float TimeToDefault = 0.2f;
     protected const float TimeToStart = 0.3f;
-    protected const float TimeAttack = 1f;
+    protected const float TimeAttack = 7f;
 
     public struct Ctx
     {

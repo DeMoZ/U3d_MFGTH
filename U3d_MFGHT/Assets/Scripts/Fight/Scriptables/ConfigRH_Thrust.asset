@@ -12,7 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f903ee1b487f49a3b5acc0df643f2301, type: 3}
   m_Name: ConfigRH_Thrust
   m_EditorClassIdentifier: 
-  _defaultLocalPosition: 0
   _fromLocalPosition: 5
   _toLocalPosition: 6
   _blendTime: 0.5
@@ -21,28 +20,37 @@ MonoBehaviour:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
-      time: 0.0041656494
+      time: 0
       value: 0
-      inSlope: -0
-      outSlope: -0
+      inSlope: 0
+      outSlope: 0
       tangentMode: 0
       weightedMode: 0
       inWeight: 0
-      outWeight: 0.3758027
+      outWeight: 0
     - serializedVersion: 3
-      time: 0.6250615
-      value: 0.3372512
-      inSlope: 1.5202861
-      outSlope: 1.5202861
+      time: 0.37426382
+      value: 0.03140275
+      inSlope: 0.08081556
+      outSlope: 0.08081556
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.33333334
+      inWeight: 0.06397977
       outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.6315048
+      value: 0.155771
+      inSlope: 0.83063614
+      outSlope: 0.83063614
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.051884394
+      outWeight: 0.046903457
     - serializedVersion: 3
       time: 1
       value: 1
-      inSlope: 0
-      outSlope: 0
+      inSlope: 2
+      outSlope: 2
       tangentMode: 0
       weightedMode: 0
       inWeight: 0
