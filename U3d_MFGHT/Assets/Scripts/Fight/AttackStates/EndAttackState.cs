@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 using DG.Tweening;
 using UniRx;
 using UnityEngine;
@@ -19,11 +18,11 @@ public class EndAttackState : AbstractAttackState
     }
 
     private Ctx _ctx;
-    
-    public EndAttackState(Ctx ctx) : base(new AbstractAttackState.Ctx{OnSwipe = ctx.OnSwipe})
+
+    public EndAttackState(Ctx ctx) : base(new AbstractAttackState.Ctx { OnSwipe = ctx.OnSwipe })
     {
         _ctx = ctx;
-    
+
         Debug.Log("<color=#00FF00>EndAttackState ctx</color>");
         var positionType = _ctx.CurrentAttackConfig.Value.GetToLocalPosition();
         Debug.Log($"<color=#FF0000>_ctx.CurrentAttackSequences.Count</color> = {_ctx.CurrentAttackSequences.Count}");
@@ -31,7 +30,7 @@ public class EndAttackState : AbstractAttackState
 
         // _currentTween = _ctx.BodyParts.RHTarget.DOMove(mapPoint.transform.position, TimeAttack)
         //     .SetEase(Ease.InOutQuint);
-        
+
         TweenBlend(_ctx.CurrentAttackConfig.Value);
 
         WaitForSwingEnd();
@@ -42,47 +41,25 @@ public class EndAttackState : AbstractAttackState
         float timerScaled;
         float timer = 0;
         float amplitude;
-        Vector3 straightPosition;
+        Vector3 straightLocalPosition;
         Vector3 position;
 
-        /*Transform fromPoint = _ctx.BodyParts.RHTarget;
-        var positionType = config.GetToLocalPosition();
-        var mapPoint = _ctx.AttackMap.RHEndPoints.First(p => p.AttackPointPosition == positionType);
-        Transform toPoint = mapPoint.transform;
-
-        _currentTween = DOTween.To(() => value, x => value = x, 1,TimeAttack).OnUpdate(()=>{
-            Debug.Log($"<color=#000FF> value = {value}</color>");
-            
-            timerScaled = config.GetSpeedCurve().Evaluate(value);
-            amplitude = Mathf.Sin(value * Mathf.PI) * config.GetAmplitude();
-            straightPosition = Vector3.Lerp(fromPoint.position, toPoint.position, timerScaled);
-            position = straightPosition + _ctx.PlayerTransform.forward * amplitude;
-
-            _ctx.BodyParts.RHTarget.position = position;
-        });*/
         var positionType = config.GetToLocalPosition();
         var mapPoint = _ctx.AttackMap.RHEndPoints.First(p => p.AttackPointPosition == positionType);
         var toPoint = mapPoint.transform.localPosition;
         var fromPoint = _ctx.BodyParts.RHTarget.localPosition;
 
-   
-        _currentTween = DOTween.To(()=> timer, x => timer = x, 1, TimeAttack).OnUpdate(() =>
+        _currentTween = DOTween.To(() => timer, x => timer = x, 1, TimeAttack).OnUpdate(() =>
         {
             timerScaled = config.GetSpeedCurve().Evaluate(timer);
-
-            straightPosition = Vector3.Lerp(fromPoint, toPoint, timerScaled);
-            Debug.Log($"<color=#000FF> value = {timer}</color>; curved time = {timerScaled}; position = {straightPosition}");
-           // _ctx.BodyParts.RHTarget.localPosition = straightPosition;
-           
-           amplitude = Mathf.Sin(timerScaled * Mathf.PI) * config.GetAmplitude();
-           position = straightPosition + _ctx.PlayerTransform.forward * amplitude;
-           _ctx.BodyParts.RHTarget.localPosition = position;
-            
+            straightLocalPosition = Vector3.Lerp(fromPoint, toPoint, timerScaled);
+            amplitude = Mathf.Sin(timerScaled * Mathf.PI) * config.GetAmplitude();
+            position = straightLocalPosition + Vector3.forward * amplitude;
+            _ctx.BodyParts.RHTarget.localPosition = position;
         });
-
     }
 
-   
+
     /*private IEnumerator IEBlend()
     {
         var timer = 0f;
@@ -113,7 +90,7 @@ public class EndAttackState : AbstractAttackState
             Debug.Log("EndAttackState received skip (None state)");
             return;
         }
-        
+
         Debug.Log($"EndAttackState received on swipe {swipe.SwipeState}; {swipe.SwipeDirection}");
 
         _currentSwipe = swipe;
