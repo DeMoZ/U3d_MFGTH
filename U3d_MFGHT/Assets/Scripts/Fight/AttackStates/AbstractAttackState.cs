@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using DG.Tweening;
 using UniRx;
+using UnityEngine;
 
 internal interface IAttackState
 {
@@ -18,6 +19,8 @@ public abstract class AbstractAttackState : IAttackState, IDisposable
     public struct Ctx
     {
         public IReactiveCommand<Swipe> OnSwipe;
+        public BodyParts BodyParts; 
+        public AttackMapView AttackMap;
     }
 
     protected Ctx _ctx;
@@ -37,6 +40,71 @@ public abstract class AbstractAttackState : IAttackState, IDisposable
     protected List<AttackSequence> GetSequencesByDirection(List<AttackSequence> sequences, int attackNumber) => 
         sequences.Where(s => s._attacks[attackNumber].SewipeDireciton == _currentSwipe.SwipeDirection).ToList();
 
+    protected void TweenBlend(AttackConfig config, AttackStatesTypes attackStatesType)
+    {
+        float timerScaled;
+        float timer = 0;
+        float amplitude;
+        Vector3 straightLocalPosition;
+        Vector3 position;
+
+        var destinationPoints = DestinationPoints(attackStatesType);
+
+        var positionType = config.GetToLocalPosition();
+        var mapPoint = destinationPoints.First(p => p.AttackPointPosition == positionType);
+        var toPoint = mapPoint.transform.localPosition;
+        var fromPoint = _ctx.BodyParts.RHTarget.localPosition;
+        
+        var duration = attackStatesType switch
+        {
+            AttackStatesTypes.Default => TimeToDefault,
+            AttackStatesTypes.Start => TimeToStart,
+            AttackStatesTypes.End => TimeAttack,
+            _ => throw new NotImplementedException($"The state for {attackStatesType} wasn't implemented")
+        };
+
+        _currentTween = DOTween.To(() => timer, x => timer = x, 1, duration).OnUpdate(() =>
+        {
+            timerScaled = config.GetSpeedCurve().Evaluate(timer);
+            straightLocalPosition = Vector3.Lerp(fromPoint, toPoint, timerScaled);
+            amplitude = Mathf.Sin(timerScaled * Mathf.PI) * config.GetAmplitude();
+            position = straightLocalPosition + Vector3.forward * amplitude;
+            _ctx.BodyParts.RHTarget.localPosition = position;
+        });
+    }
+
+    private List<PointView> DestinationPoints(AttackStatesTypes attackStatesType)
+    {
+        List<PointView> destinationPoints = new List<PointView>();
+
+
+        switch (attackStatesType)
+        {
+            case AttackStatesTypes.Default:
+                destinationPoints.Add(_ctx.AttackMap.RHDefaultPoint);
+                break;
+            case AttackStatesTypes.Start:
+                destinationPoints = _ctx.AttackMap.RHStartPoints;
+                break;
+            /*case AttackStatesTypes.PowerUp:
+                destinationPoints = _ctx.AttackMap.RHStartPoints;
+                break;*/
+            case AttackStatesTypes.End:
+                destinationPoints = _ctx.AttackMap.RHEndPoints;
+                break;
+            /*case AttackStatesTypes.ShortEnd:
+                destinationPoints = _ctx.AttackMap.RHEndPoints;
+                break;*/
+            /*case AttackStatesTypes.LongEnd:
+                destinationPoints = _ctx.AttackMap.RHEndPoints;
+                break;*/
+            default:
+                throw new ArgumentOutOfRangeException(nameof(attackStatesType), attackStatesType, null);
+        }
+
+        return destinationPoints;
+    }
+    
     public void Dispose()
     {
         _toDispose.Dispose();

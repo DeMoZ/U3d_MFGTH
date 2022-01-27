@@ -7,23 +7,31 @@ public class DefaultAttackState : AbstractAttackState
 {
     public new struct Ctx
     {
+        public Transform PlayerTransform;
         public BodyParts BodyParts;
         public AttackMapView AttackMap;
+
         public AttackScheme AttackScheme;
+        public ReactiveProperty<AttackConfig> CurrentAttackConfig;
         public List<AttackSequence> CurrentAttackSequences;
         public ReactiveCommand<AttackStatesTypes> OnAttackStateChanged;
         public ReactiveCommand<Swipe> OnSwipe;
     }
 
     private Ctx _ctx;
-    
-    public DefaultAttackState(Ctx ctx) : base(new AbstractAttackState.Ctx{OnSwipe = ctx.OnSwipe})
+
+    public DefaultAttackState(Ctx ctx) : base(new AbstractAttackState.Ctx
+    {
+        OnSwipe = ctx.OnSwipe,
+        BodyParts = ctx.BodyParts,
+        AttackMap = ctx.AttackMap
+    })
     {
         _ctx = ctx;
 
         Debug.Log("<color=#00FF00> DefaultState ctx</color>");
-        _currentTween = _ctx.BodyParts.RHTarget.DOMove(_ctx.AttackMap.RHDefaultPoint.transform.position, TimeToDefault)
-            .SetEase(Ease.OutQuint);
+        _ctx.CurrentAttackSequences.Clear();
+        TweenBlend(_ctx.CurrentAttackConfig.Value, AttackStatesTypes.Default);
     }
 
     protected override async void OnSwipe(Swipe swipe)
@@ -45,7 +53,8 @@ public class DefaultAttackState : AbstractAttackState
                 Debug.Log("DefaultState -> StartState");
                 _ctx.CurrentAttackSequences.Clear();
                 _ctx.CurrentAttackSequences.AddRange(GetSequencesByDirection(_ctx.AttackScheme._attackSequences, 0));
-                Debug.Log($"<color=#FF0000>_ctx.CurrentAttackSequences.Count</color> = {_ctx.CurrentAttackSequences.Count}");
+                Debug.Log(
+                    $"<color=#FF0000>_ctx.CurrentAttackSequences.Count</color> = {_ctx.CurrentAttackSequences.Count}");
                 _ctx.OnAttackStateChanged.Execute(AttackStatesTypes.Start);
                 break;
             default:

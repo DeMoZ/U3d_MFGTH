@@ -22,10 +22,11 @@ public class PlayerAttackPm : IDisposable
     private Tween _currentTween;
     private IAttackState _currentAttackState;
     private List<AttackSequence> _currentAttackSequences;
-    
+
     private ReactiveProperty<AttackConfig> _currentAttackConfig;
-    
+
     private ReactiveCommand<AttackStatesTypes> _onAttackStateChange;
+
     public PlayerAttackPm(Ctx ctx)
     {
         _ctx = ctx;
@@ -34,7 +35,7 @@ public class PlayerAttackPm : IDisposable
         //_currentSwipe = new Swipe();
         _currentAttackConfig = new ReactiveProperty<AttackConfig>();
         _currentAttackSequences = new List<AttackSequence>();
-        
+
         _onAttackStateChange = new ReactiveCommand<AttackStatesTypes>();
         _onAttackStateChange.Subscribe(OnStateChanged).AddTo(_toDispose);
         _onAttackStateChange.Execute(AttackStatesTypes.Default);
@@ -43,7 +44,7 @@ public class PlayerAttackPm : IDisposable
     private void OnStateChanged(AttackStatesTypes state)
     {
         // Debug.Log($"<color=#FF0000>_ctx.CurrentAttackSequences.Count</color> = {_currentAttackSequences.Count}");
-        
+
         _currentAttackState?.Dispose();
         switch (state)
         {
@@ -77,13 +78,17 @@ public class PlayerAttackPm : IDisposable
 
     private DefaultAttackState CreateDefaultAttackState()
     {
+        _currentAttackConfig.Value = _ctx.AttackScheme.DefaultAttackConfig;
+
         var attackStateCtx = new DefaultAttackState.Ctx
         {
+            PlayerTransform = _ctx.PlayerTransform,
             CurrentAttackSequences = _currentAttackSequences,
             AttackScheme = _ctx.AttackScheme,
             BodyParts = _ctx.BodyParts,
             AttackMap = _ctx.AttackMap,
 
+            CurrentAttackConfig = _currentAttackConfig,
             OnAttackStateChanged = _onAttackStateChange,
             OnSwipe = _ctx.OnSwipe,
         };
@@ -115,7 +120,6 @@ public class PlayerAttackPm : IDisposable
     {
         var attackStateCtx = new EndAttackState.Ctx
         {
-            PlayerTransform = _ctx.PlayerTransform,
             CurrentAttackConfig = _currentAttackConfig,
             CurrentAttackSequences = _currentAttackSequences,
             BodyParts = _ctx.BodyParts,

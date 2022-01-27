@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02a1538abd1b4a63be1657bbcaeb876e, type: 3}
   m_Name: Scheme_0
   m_EditorClassIdentifier: 
+  DefaultAttackConfig: {fileID: 11400000, guid: 4ac2c7d24b99f604ea98c90fc8e98719, type: 2}
   _attackSequences:
   - {fileID: 11400000, guid: 2e4406f0056966948bd609bb2e08de4a, type: 2}
   - {fileID: 11400000, guid: 75c871bd47c6d144a903c9d43ac0093a, type: 2}

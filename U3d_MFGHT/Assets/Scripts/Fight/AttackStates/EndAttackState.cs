@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using DG.Tweening;
@@ -8,9 +9,9 @@ public class EndAttackState : AbstractAttackState
 {
     public new struct Ctx
     {
-        public Transform PlayerTransform;
         public BodyParts BodyParts;
         public AttackMapView AttackMap;
+
         public List<AttackSequence> CurrentAttackSequences;
         public ReactiveProperty<AttackConfig> CurrentAttackConfig;
         public ReactiveCommand<AttackStatesTypes> OnAttackStateChanged;
@@ -19,7 +20,12 @@ public class EndAttackState : AbstractAttackState
 
     private Ctx _ctx;
 
-    public EndAttackState(Ctx ctx) : base(new AbstractAttackState.Ctx { OnSwipe = ctx.OnSwipe })
+    public EndAttackState(Ctx ctx) : base(new AbstractAttackState.Ctx
+    {
+        OnSwipe = ctx.OnSwipe,
+        BodyParts = ctx.BodyParts,
+        AttackMap = ctx.AttackMap
+    })
     {
         _ctx = ctx;
 
@@ -31,34 +37,10 @@ public class EndAttackState : AbstractAttackState
         // _currentTween = _ctx.BodyParts.RHTarget.DOMove(mapPoint.transform.position, TimeAttack)
         //     .SetEase(Ease.InOutQuint);
 
-        TweenBlend(_ctx.CurrentAttackConfig.Value);
+        TweenBlend(_ctx.CurrentAttackConfig.Value, AttackStatesTypes.End);
 
         WaitForSwingEnd();
     }
-
-    private void TweenBlend(AttackConfig config)
-    {
-        float timerScaled;
-        float timer = 0;
-        float amplitude;
-        Vector3 straightLocalPosition;
-        Vector3 position;
-
-        var positionType = config.GetToLocalPosition();
-        var mapPoint = _ctx.AttackMap.RHEndPoints.First(p => p.AttackPointPosition == positionType);
-        var toPoint = mapPoint.transform.localPosition;
-        var fromPoint = _ctx.BodyParts.RHTarget.localPosition;
-
-        _currentTween = DOTween.To(() => timer, x => timer = x, 1, TimeAttack).OnUpdate(() =>
-        {
-            timerScaled = config.GetSpeedCurve().Evaluate(timer);
-            straightLocalPosition = Vector3.Lerp(fromPoint, toPoint, timerScaled);
-            amplitude = Mathf.Sin(timerScaled * Mathf.PI) * config.GetAmplitude();
-            position = straightLocalPosition + Vector3.forward * amplitude;
-            _ctx.BodyParts.RHTarget.localPosition = position;
-        });
-    }
-
 
     /*private IEnumerator IEBlend()
     {
