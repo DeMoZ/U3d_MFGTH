@@ -20,6 +20,8 @@ public class EndAttackState : AbstractAttackState
 
     private Ctx _ctx;
 
+    private Swipe _nextSwipe;
+    
     public EndAttackState(Ctx ctx) : base(new AbstractAttackState.Ctx
     {
         OnSwipe = ctx.OnSwipe,

@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f903ee1b487f49a3b5acc0df643f2301, type: 3}
-  m_Name: ConfigRH_DownUp
+  m_Name: ConfigRH_ToDown
   m_EditorClassIdentifier: 
-  _fromLocalPosition: 2
-  _toLocalPosition: 1
+  _fromLocalPosition: 1
+  _toLocalPosition: 2
   _blendTime: 0.5
   _amplitude: 0.4
   _speedCurve:

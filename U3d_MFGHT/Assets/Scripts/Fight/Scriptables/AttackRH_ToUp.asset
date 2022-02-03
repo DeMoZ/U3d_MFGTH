@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6c54bb8dbfb24bb9afbbfbe168c6d7e1, type: 3}
-  m_Name: AttackRH_RightLeft
+  m_Name: AttackRH_ToUp
   m_EditorClassIdentifier: 
-  SewipeDireciton: 2
-  AttackConfig: {fileID: 11400000, guid: 7c4f191d041a32b4ebf32f24d99b6553, type: 2}
+  SewipeDireciton: 3
+  AttackConfig: {fileID: 11400000, guid: 2fb3782880f770c4698c51f358fb088b, type: 2}

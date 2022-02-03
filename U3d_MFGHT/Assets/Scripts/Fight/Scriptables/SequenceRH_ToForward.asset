@@ -9,8 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6c54bb8dbfb24bb9afbbfbe168c6d7e1, type: 3}
-  m_Name: AttackRH_DownUp
+  m_Script: {fileID: 11500000, guid: 7cc268833e6f4625a3053c50b736c83e, type: 3}
+  m_Name: SequenceRH_ToForward
   m_EditorClassIdentifier: 
-  SewipeDireciton: 3
-  AttackConfig: {fileID: 11400000, guid: 2fb3782880f770c4698c51f358fb088b, type: 2}
+  _attacks:
+  - {fileID: 11400000, guid: 0509e1df1ba04cd46bb9d4b72f50b687, type: 2}

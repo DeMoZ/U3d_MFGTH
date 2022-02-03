@@ -32,10 +32,11 @@ public class PlayerAttackPm : IDisposable
         _ctx = ctx;
         _toDispose = new CompositeDisposable();
 
-        //_currentSwipe = new Swipe();
         _currentAttackConfig = new ReactiveProperty<AttackConfig>();
         _currentAttackSequences = new List<AttackSequence>();
 
+        _ctx.OnSwipe.Subscribe(TEST_);
+        
         _onAttackStateChange = new ReactiveCommand<AttackStatesTypes>();
         _onAttackStateChange.Subscribe(OnStateChanged).AddTo(_toDispose);
         _onAttackStateChange.Execute(AttackStatesTypes.Default);
@@ -78,7 +79,7 @@ public class PlayerAttackPm : IDisposable
 
     private DefaultAttackState CreateDefaultAttackState()
     {
-        _currentAttackConfig.Value = _ctx.AttackScheme.DefaultAttackConfig;
+        _currentAttackConfig.Value = _ctx.AttackScheme.DefaultAttackIdlePositionConfig;
 
         var attackStateCtx = new DefaultAttackState.Ctx
         {
@@ -138,5 +139,10 @@ public class PlayerAttackPm : IDisposable
 
     private void CreateLongEndAttackState()
     {
+    }
+
+    private void TEST_(Swipe swipe)
+    {
+        Debug.Log($"<color=red>{AbstractAttackState.SwipeDirectionChar(swipe.SwipeDirection)}</color> ; AttackPM received swipe");
     }
 }

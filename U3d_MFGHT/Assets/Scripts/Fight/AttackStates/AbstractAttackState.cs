@@ -4,6 +4,7 @@ using System.Linq;
 using DG.Tweening;
 using UniRx;
 using UnityEngine;
+using Debug = UnityEngine.Debug;
 
 internal interface IAttackState
 {
@@ -19,7 +20,7 @@ public abstract class AbstractAttackState : IAttackState, IDisposable
     public struct Ctx
     {
         public IReactiveCommand<Swipe> OnSwipe;
-        public BodyParts BodyParts; 
+        public BodyParts BodyParts;
         public AttackMapView AttackMap;
     }
 
@@ -36,9 +37,13 @@ public abstract class AbstractAttackState : IAttackState, IDisposable
         _toDispose = new CompositeDisposable();
         _ctx.OnSwipe.Subscribe(OnSwipe).AddTo(_toDispose);
     }
-    
-    protected List<AttackSequence> GetSequencesByDirection(List<AttackSequence> sequences, int attackNumber) => 
-        sequences.Where(s => s._attacks[attackNumber].SewipeDireciton == _currentSwipe.SwipeDirection).ToList();
+
+    protected List<AttackSequence> GetSequencesByDirection(List<AttackSequence> sequences, int attackNumber)
+    {
+        var seq =  sequences.Where(s => s._attacks[attackNumber].SewipeDireciton == _currentSwipe.SwipeDirection).ToList();
+        Debug.Log($"From sequences amount {sequences.Count} selected amount {seq.Count}");
+        return seq;
+    }
 
     protected void TweenBlend(AttackConfig config, AttackStatesTypes attackStatesType)
     {
@@ -54,7 +59,7 @@ public abstract class AbstractAttackState : IAttackState, IDisposable
         var mapPoint = destinationPoints.First(p => p.AttackPointPosition == positionType);
         var toPoint = mapPoint.transform.localPosition;
         var fromPoint = _ctx.BodyParts.RHTarget.localPosition;
-        
+
         var duration = attackStatesType switch
         {
             AttackStatesTypes.Default => TimeToDefault,
@@ -104,9 +109,26 @@ public abstract class AbstractAttackState : IAttackState, IDisposable
 
         return destinationPoints;
     }
-    
+
     public void Dispose()
     {
         _toDispose.Dispose();
     }
+
+    public static char SwipeDirectionChar(SwipeDirections direction)
+    {
+        return direction switch
+        {
+            SwipeDirections.None => 'O',
+            SwipeDirections.ToRight => '>',
+            SwipeDirections.ToLeft => '<',
+            SwipeDirections.ToUp => '^',
+            SwipeDirections.ToDown => 'v',
+            SwipeDirections.Thrust => 'x',
+            _ => throw new ArgumentOutOfRangeException(nameof(direction), direction, null)
+        };
+    }
+
+    public static string SwipeDirectionFromTo(SwipeDirections from, SwipeDirections to) =>
+        $"{SwipeDirectionChar(from)} : {SwipeDirectionChar(to)}";
 }

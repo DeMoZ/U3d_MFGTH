@@ -31,7 +31,10 @@ public class StartAttackState : AbstractAttackState
         Debug.Log("<color=#00FF00>StartAttackState ctx</color>");
         Debug.Log($"<color=#FF0000>_ctx.CurrentAttackSequences.Count</color> = {_ctx.CurrentAttackSequences.Count}");
 
-        _ctx.CurrentAttackConfig.Value = _ctx.CurrentAttackSequences[0]._attacks[0].AttackConfig;
+        _ctx.CurrentAttackConfig.Value = _ctx.CurrentAttackSequences.Count == 0 
+            ? _ctx.AttackScheme.DefaultAttackConfig 
+            : _ctx.CurrentAttackSequences[0]._attacks[0].AttackConfig; // TODO shouldnt be here. Only for default state. Or remove completelly
+        
         var positionType = _ctx.CurrentAttackConfig.Value.GetFromLocalPosition();
         var mapPoint = _ctx.AttackMap.RHStartPoints.First(p => p.AttackPointPosition == positionType);
 

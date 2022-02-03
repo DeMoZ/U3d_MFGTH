@@ -38,6 +38,7 @@ public class SwipeCatcher : MonoBehaviour, IPointerDownHandler, IBeginDragHandle
             SwipeDirection = SwipeDirections.None
         });
 
+        _touchPos = eventData.position;
         //Debug.Log("OnPointerDown");
 
         if (_thrustDelayRoutine != null)
@@ -50,7 +51,6 @@ public class SwipeCatcher : MonoBehaviour, IPointerDownHandler, IBeginDragHandle
     {
         yield return _delaySeconds;
 
-        _touchPos = eventData.position;
         _swipeDirection = SwipeDirections.Thrust;
 
         _ctx.OnSwipe.Execute(new Swipe
