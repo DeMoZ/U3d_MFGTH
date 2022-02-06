@@ -52,7 +52,7 @@ public class StartAttackState : AbstractAttackState
         }
 
         // TODO: HOLD!!!!! need to implement somehow
-        Debug.Log($"StartAttackState.OnSwipe received {swipe.SwipeState}; {swipe.SwipeDirection}");
+        // Debug.Log($"StartAttackState.OnSwipe received {swipe.SwipeState}; {swipe.SwipeDirection}");
 
         _currentSwipe = swipe;
         if (_currentTween.IsActive() && _currentTween.IsPlaying())
