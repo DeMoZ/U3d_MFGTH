@@ -190,10 +190,10 @@ public class SwipeCatcher : MonoBehaviour, IPointerDownHandler, IBeginDragHandle
         _debugShowValue = _swipeDirection switch
         {
             SwipeDirections.None => "o",
-            SwipeDirections.ToRight => ">",
-            SwipeDirections.ToLeft => "<",
-            SwipeDirections.ToUp => "^",
-            SwipeDirections.ToDown => "v",
+            SwipeDirections.ToLeft => "\u2190",         // <        
+            SwipeDirections.ToUp => "\u2191",           // ^        
+            SwipeDirections.ToRight => "\u2192",        // >        
+            SwipeDirections.ToDown => "\u2193",         // v        
             SwipeDirections.Thrust => "x",
             _ => throw new ArgumentOutOfRangeException()
         };

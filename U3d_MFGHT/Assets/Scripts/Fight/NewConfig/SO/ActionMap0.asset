@@ -1,0 +1,123 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5785f043c7914a50914d8066134e3c3b, type: 3}
+  m_Name: ActionMap0
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
+  _actionSequences:
+  - _actionSets:
+    - _direction: 1
+      _duration: 1.5
+      _actionMoves:
+      - _startOffset: 0
+        _duration: 1.5
+        _fromLocalPoint: {x: 0, y: 0, z: 0}
+        _toLocalPoint: {x: 0, y: 0, z: 0}
+        _durationCurve:
+          serializedVersion: 2
+          m_Curve:
+          - serializedVersion: 3
+            time: 0
+            value: 0
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 1
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        _amplitudeCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        _movePart: 6
+        _moveType: 0
+      - _startOffset: 0
+        _duration: 1
+        _fromLocalPoint: {x: 0, y: 0, z: 0}
+        _toLocalPoint: {x: 0, y: 0, z: 0}
+        _durationCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        _amplitudeCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        _movePart: 0
+        _moveType: 0
+    - _direction: 1
+      _duration: 1
+      _actionMoves:
+      - _startOffset: 0
+        _duration: 1
+        _fromLocalPoint: {x: 0, y: 0, z: 0}
+        _toLocalPoint: {x: 0, y: 0, z: 0}
+        _durationCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        _amplitudeCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        _movePart: 0
+        _moveType: 0
+    - _direction: 2
+      _duration: 1
+      _actionMoves: []
+    - _direction: 3
+      _duration: 1
+      _actionMoves: []
+    - _direction: 4
+      _duration: 1
+      _actionMoves: []
+    - _direction: 5
+      _duration: 1
+      _actionMoves: []
+  - _actionSets:
+    - _direction: 5
+      _duration: 1
+      _actionMoves: []
+  - _actionSets:
+    - _direction: 3
+      _duration: 1
+      _actionMoves: []
