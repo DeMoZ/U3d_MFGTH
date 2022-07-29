@@ -5,8 +5,8 @@ public class RootEntity
 {
     public struct Context
     {
-        public Transform UIParent;
-        public ResourceLoader ResourceLoader;
+        /*public Transform UIParent;
+        public ResourceLoader ResourceLoader;*/
     }
 
     private Context _context;
@@ -15,7 +15,7 @@ public class RootEntity
     {
         _context = context;
 
-        var swipeCatcher = _context.ResourceLoader.Get<SwipeCatcher>(_context.ResourceLoader.UIPrefabs.SwipeCatcher, _context.UIParent); 
+        SwipeCatcher swipeCatcher = default;//_context.ResourceLoader.Get<SwipeCatcher>(_context.ResourceLoader.UIPrefabs.SwipeCatcher, _context.UIParent); 
         
         
         IReactiveCommand<Swipe> onSwipe = new ReactiveCommand<Swipe>();

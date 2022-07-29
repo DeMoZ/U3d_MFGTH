@@ -12,7 +12,7 @@ public class PlayerSwipeInput : IDisposable
     }
 
     private Context _context;
-    private CompositeDisposable _toDespose;
+    private CompositeDisposable _toDespose = new();
 
     public PlayerSwipeInput(Context context)
     {
