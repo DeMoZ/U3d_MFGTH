@@ -13,7 +13,7 @@ public class StartApp : MonoBehaviour
     private async void LoadEntryScene()
     {
         await Task.Delay(50);
-        Debug.Log($"[time] Loading scene start.. {Time.realtimeSinceStartup}");
+        Debug.Log($"[StartApp][time] Loading scene start.. {Time.realtimeSinceStartup}");
         SceneManager.LoadScene(sceneName);
     }
 }

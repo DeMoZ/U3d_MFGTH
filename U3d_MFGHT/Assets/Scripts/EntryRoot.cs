@@ -1,15 +1,29 @@
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class EntryRoot : MonoBehaviour
 {
-    //[SerializeField] private ResourceLoader _resourceLoader = default;
-    [SerializeField] private Transform UIInputParent = default;
+    private List<IDisposable> _disposables;
     private void Awake()
     {
-        var rootEntity = new RootEntity(new RootEntity.Context
+        Debug.Log($"[EntryRoot][time] Loading scene start.. {Time.realtimeSinceStartup}");
+        
+        _disposables = new List<IDisposable>();
+        
+        CreateAppSettings();
+        CreateRootEntity();
+    }
+
+    private void CreateAppSettings()
+    {
+    }
+
+    private void CreateRootEntity()
+    {
+        var rootEntity = new RootEntity(new RootEntity.Ctx
         {
-            //ResourceLoader = _resourceLoader,
-            //UIParent = UIInputParent
+            
         });
     }
 }
